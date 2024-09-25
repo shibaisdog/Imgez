@@ -29,7 +29,7 @@ func (baseImg *Image) Text(x, y int, Font *sfnt.Font, size float64, text string)
 		Dst:  rgbaImage,
 		Src:  image.NewUniform(color.Black),
 		Face: fontFace,
-		Dot:  fixed.P(x+int(size), y),
+		Dot:  fixed.P(x, y),
 	}
 
 	d.DrawString(text)
