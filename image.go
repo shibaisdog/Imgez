@@ -1,4 +1,4 @@
-package imgez
+package Imgez
 
 import (
 	"image"
