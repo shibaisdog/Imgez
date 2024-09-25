@@ -5,12 +5,18 @@ import (
 	"image/draw"
 	"image/png"
 	"os"
+
+	"github.com/shibaisdog/Imgez/color"
 )
 
-func NewImage(p Pixel, w uint, h uint) Image {
+type Pixel []color.RGBA
+
+type Image []Pixel
+
+func NewImage(p color.RGBA, w uint, h uint) Image {
 	New_Image := Image{}
 	for i := uint(0); i < h; i++ {
-		ImageW := PixelX{}
+		ImageW := Pixel{}
 		for j := uint(0); j < w; j++ {
 			ImageW = append(ImageW, p)
 		}

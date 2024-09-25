@@ -3,18 +3,9 @@ package Imgez
 import (
 	"image"
 	"image/color"
+
+	clr "github.com/shibaisdog/Imgez/color"
 )
-
-type Pixel struct {
-	R uint8
-	G uint8
-	B uint8
-	A uint8
-}
-
-type PixelX []Pixel
-
-type Image []PixelX
 
 func Imgez_To_Image(img Image) image.Image {
 	height := len(img)
@@ -37,10 +28,10 @@ func Image_To_Imgez(img image.Image) Image {
 	width, height := bounds.Max.X, bounds.Max.Y
 	newImg := make(Image, height)
 	for y := 0; y < height; y++ {
-		row := make(PixelX, width)
+		row := make(Pixel, width)
 		for x := 0; x < width; x++ {
 			r, g, b, a := img.At(x, y).RGBA()
-			row[x] = Pixel{
+			row[x] = clr.RGBA{
 				R: uint8(r >> 8),
 				G: uint8(g >> 8),
 				B: uint8(b >> 8),
