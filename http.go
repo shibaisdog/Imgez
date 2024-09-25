@@ -4,6 +4,8 @@ import (
 	"errors"
 	"image"
 	"net/http"
+
+	"golang.org/x/image/webp"
 )
 
 func UrlImage(url string) (Image, error) {
@@ -15,7 +17,13 @@ func UrlImage(url string) (Image, error) {
 	if resp.StatusCode != http.StatusOK {
 		return nil, errors.New("Failed to get a valid response: " + resp.Status)
 	}
-	img, _, err := image.Decode(resp.Body)
+	contentType := resp.Header.Get("Content-Type")
+	var img image.Image
+	if contentType != "image/webp" {
+		img, err = webp.Decode(resp.Body)
+	} else {
+		img, _, err = image.Decode(resp.Body)
+	}
 	if err != nil {
 		return nil, err
 	}
