@@ -7,7 +7,7 @@ import (
 	"golang.org/x/image/font/sfnt"
 )
 
-func LoadFont(file string, size, dpi float64) (*sfnt.Font, error) {
+func LoadFont(file string) (*sfnt.Font, error) {
 	fontBytes, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
