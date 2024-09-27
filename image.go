@@ -2,18 +2,30 @@ package Imgez
 
 import (
 	"image"
+	"image/color"
 	"image/draw"
+	"image/jpeg"
 	"image/png"
 	"os"
 
-	"github.com/shibaisdog/Imgez/color"
+	clr "github.com/shibaisdog/Imgez/color"
 )
 
-type Pixel []color.RGBA
+type Pixel []clr.RGBA
 
 type Image []Pixel
 
-func NewImage(p color.RGBA, w uint, h uint) Image {
+func (i *Image) At(x, y int) color.Color {
+	Img := Imgez_To_Image(*i)
+	return Img.At(x, y)
+}
+
+func (i *Image) Bounds() image.Rectangle {
+	Img := Imgez_To_Image(*i)
+	return Img.Bounds()
+}
+
+func NewImage(p clr.RGBA, w uint, h uint) Image {
 	New_Image := Image{}
 	for i := uint(0); i < h; i++ {
 		ImageW := Pixel{}
@@ -25,7 +37,7 @@ func NewImage(p color.RGBA, w uint, h uint) Image {
 	return New_Image
 }
 
-func ReadImage(filename string) (Image, error) {
+func Open(filename string) (Image, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -47,6 +59,23 @@ func (img Image) SavePNG(filename string) error {
 	}
 	defer file.Close()
 	err = png.Encode(file, newImg)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (img Image) SaveJPEG(filename string, quality int) error {
+	newImg := Imgez_To_Image(img)
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	options := jpeg.Options{
+		Quality: quality,
+	}
+	err = jpeg.Encode(file, newImg, &options)
 	if err != nil {
 		return err
 	}

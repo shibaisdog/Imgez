@@ -3,7 +3,10 @@ package Imgez
 import (
 	"errors"
 	"image"
+
 	"image/color"
+
+	clr "github.com/shibaisdog/Imgez/color"
 
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
@@ -11,7 +14,7 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
-func (baseImg *Image) Text(x, y int, Font *sfnt.Font, size float64, text string) error {
+func (baseImg *Image) Text(Font *sfnt.Font, Color clr.RGBA, x, y int, size float64, text string) error {
 	baseImage := Imgez_To_Image(*baseImg)
 	rgbaImage, ok := baseImage.(*image.RGBA)
 	if !ok {
@@ -27,7 +30,7 @@ func (baseImg *Image) Text(x, y int, Font *sfnt.Font, size float64, text string)
 	}
 	d := &font.Drawer{
 		Dst:  rgbaImage,
-		Src:  image.NewUniform(color.Black),
+		Src:  image.NewUniform(color.RGBA{Color.R, Color.G, Color.B, Color.A}),
 		Face: fontFace,
 		Dot:  fixed.P(x, y),
 	}
