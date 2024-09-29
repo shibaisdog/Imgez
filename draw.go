@@ -4,11 +4,9 @@ import (
 	"image"
 	"image/color"
 	"math"
-
-	clr "github.com/shibaisdog/Imgez/color"
 )
 
-func (img *Image) DrawLine(clr clr.RGBA, l1, l2 Location) {
+func (img *Image) DrawLine(clr RGBA, l1, l2 Location) {
 	newImg := Imgez_To_Image(*img)
 	bounds := newImg.Bounds()
 	newRGBA := image.NewRGBA(bounds)

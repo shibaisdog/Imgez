@@ -7,8 +7,6 @@ import (
 
 	"image/color"
 
-	clr "github.com/shibaisdog/Imgez/color"
-
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/font/sfnt"
@@ -60,7 +58,7 @@ func (f Font) Measure(text string, size float64) (float64, float64, error) {
 	return width * scale, height * scale, nil
 }
 
-func (baseImg *Image) Text(Font Font, Color clr.RGBA, text string, size float64, l Location) error {
+func (baseImg *Image) Text(Font Font, Color RGBA, l Location, text string, size float64) error {
 	baseImage := Imgez_To_Image(*baseImg)
 	rgbaImage, ok := baseImage.(*image.RGBA)
 	if !ok {

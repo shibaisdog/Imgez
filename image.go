@@ -5,11 +5,9 @@ import (
 	"image/color"
 	"image/draw"
 	"os"
-
-	clr "github.com/shibaisdog/Imgez/color"
 )
 
-type Pixel []clr.RGBA
+type Pixel []RGBA
 
 type Image []Pixel
 
@@ -31,7 +29,7 @@ func (i *Image) Bounds() image.Rectangle {
 	return Img.Bounds()
 }
 
-func NewImage(p clr.RGBA, s Size) Image {
+func NewImage(p RGBA, s Size) Image {
 	New_Image := Image{}
 	for i := uint(0); i < s.Height; i++ {
 		ImageW := Pixel{}

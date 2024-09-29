@@ -1,4 +1,4 @@
-package color
+package Imgez
 
 type RGBA struct {
 	R, G, B, A uint8
