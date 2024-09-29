@@ -21,7 +21,7 @@ func (img *Image) Shape(percentage int) {
 			centerY := float64(height) / 2.0
 			distance := math.Sqrt((centerX-float64(x))*(centerX-float64(x)) + (centerY-float64(y))*(centerY-float64(y)))
 			if distance <= radius*roundness {
-				newImg.Set(x, y, img.At(x, y))
+				newImg.Set(x, y, img.At(Location{x, y}))
 			} else {
 				newImg.Set(x, y, color.Transparent)
 			}
