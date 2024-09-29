@@ -15,8 +15,20 @@ type Location struct {
 	X, Y int
 }
 
+func (c *Location) Location(x, y int) *Location {
+	return &Location{
+		X: x, Y: y,
+	}
+}
+
 type Size struct {
 	Width, Height uint
+}
+
+func (c *Size) Size(w, h uint) *Size {
+	return &Size{
+		Width: w, Height: h,
+	}
 }
 
 func (i *Image) At(l Location) color.Color {

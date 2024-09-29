@@ -29,12 +29,7 @@ func Image_To_Imgez(img image.Image) Image {
 		row := make(Pixel, width)
 		for x := 0; x < width; x++ {
 			r, g, b, a := img.At(x, y).RGBA()
-			row[x] = RGBA{
-				R: uint8(r >> 8),
-				G: uint8(g >> 8),
-				B: uint8(b >> 8),
-				A: uint8(a >> 8),
-			}
+			row[x] = RGBA{uint8(r >> 8), uint8(g >> 8), uint8(b >> 8), uint8(a >> 8)}
 		}
 		newImg[y] = row
 	}
