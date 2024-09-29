@@ -3,6 +3,8 @@ package Imgez
 import (
 	"errors"
 	"image"
+	"image/jpeg"
+	"image/png"
 	"net/http"
 
 	"golang.org/x/image/webp"
@@ -19,8 +21,12 @@ func UrlImage(url string) (Image, error) {
 	}
 	contentType := resp.Header.Get("Content-Type")
 	var img image.Image
-	if contentType != "image/webp" {
+	if contentType == "image/webp" {
 		img, err = webp.Decode(resp.Body)
+	} else if contentType == "image/png" {
+		img, err = png.Decode(resp.Body)
+	} else if contentType == "image/jpeg" || contentType == "image/jpg" {
+		img, err = jpeg.Decode(resp.Body)
 	} else {
 		img, _, err = image.Decode(resp.Body)
 	}
